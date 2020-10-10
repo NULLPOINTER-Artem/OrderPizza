@@ -10,11 +10,17 @@ function init() {
     let message = document.createElement('span');
     message.classList.add('formForMsg');
 
+
     buttonToOrder.addEventListener('click', function(event) {
         event.preventDefault();
 
-        if (message.classList.contains('payment')) {
-            message.classList.remove('payment');
+        if (!validateCheckboxes(elements)) {
+            message.classList.add('incorrect');
+            message.textContent = "Minimum number of selected ingredients is 3!";
+            message.classList.remove('deactive');
+
+            document.querySelector('.js-open-modal').before(message);
+            return;
         }
 
         // Find value of data-modal attribute in the button
@@ -37,7 +43,10 @@ function init() {
         buttonYes.addEventListener('click', function(e) {
             e.preventDefault();
 
-            message.classList.remove('deactive');
+            if (message.classList.contains('payment') || message.classList.contains('incorrect')) {
+                message.classList.remove('payment');
+                message.classList.remove('incorrect');
+            }
 
             let objOfValues = getValues(elements);
 
@@ -45,12 +54,13 @@ function init() {
 
             storeOrders.setItem(newOrder);
 
-            modalElemForPayment.classList.remove('active');
-            overlay.classList.remove('active');
+            hideModalElement(modalElemForPayment, 'active');
+            hideModalElement(overlay, 'active');
 
             form.classList.add('hide');
 
             message.textContent = 'Cooking...';
+            message.classList.remove('deactive');
             form.before(message);
 
             setTimeout(function() {
@@ -67,8 +77,8 @@ function init() {
 
             setTimeout(function() {
                 message.classList.add('deactive');
-                modalElemForLike.classList.add('active');
-                overlay.classList.add('active');
+                showModalElement(modalElemForLike, 'active');
+                showModalElement(overlay, 'active');
             }, (7 * 1000));
 
             let buttonYesForLike = modalElemForLike.querySelector('#yes-like');
@@ -77,8 +87,8 @@ function init() {
             buttonYesForLike.addEventListener('click', function(e) {
                 e.preventDefault();
 
-                modalElemForLike.classList.remove('active');
-                overlay.classList.remove('active');
+                hideModalElement(modalElemForLike, 'active');
+                hideModalElement(overlay, 'active');
 
                 message.textContent = "Thank You for your feedback!";
                 message.classList.remove('deactive');
@@ -95,8 +105,8 @@ function init() {
             buttonNoForLike.addEventListener('click', function (e) {
                 e.preventDefault();
 
-                modalElemForLike.classList.remove('active');
-                overlay.classList.remove('active');
+                hideModalElement(modalElemForLike, 'active');
+                hideModalElement(overlay, 'active');
 
                 message.textContent = "Thank You for your feedback!";
                 message.classList.remove('deactive');
@@ -114,8 +124,8 @@ function init() {
         buttonNo.addEventListener('click', function(e) {
             e.preventDefault();
 
-            modalElemForPayment.classList.remove('active');
-            overlay.classList.remove('active');
+            hideModalElement(modalElemForPayment, 'active');
+            hideModalElement(overlay, 'active');
 
             message.classList.add('payment');
             message.textContent = "The payment did not pass!";
@@ -128,14 +138,38 @@ function init() {
             if (modalElemForLike.classList.contains('active')) {
                 return;
             } else if (modalElemForPayment.classList.contains('active')) {
-                modalElemForPayment.classList.remove('active');
-                overlay.classList.remove('active');
+                hideModalElement(modalElemForPayment, 'active');
+                hideModalElement(overlay, 'active');
                 return;
             }
         })
     })
 }
 
+function validateCheckboxes(elements) {
+    let valid = true;
+    let count = 0;
+
+    [].forEach.call(elements, (item) => {
+        if (item.type === 'checkbox' && item.checked) {
+            count++;
+        }
+    })
+
+    if (count < 3) {
+        valid = false;
+    }
+
+    return valid;
+}
+
+function hideModalElement(element, classHide) {
+    element.classList.remove(classHide);
+}
+
+function showModalElement(element, classShow) {
+    element.classList.add(classShow);
+}
 
 function getValues(elements) {
     let types = ['radio', 'checkbox'];
