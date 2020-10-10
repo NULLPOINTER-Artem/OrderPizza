@@ -2,8 +2,10 @@ window.onload = init;
 
 function init() {
     let buttonToOrder = document.querySelector('.js-open-modal');
+
     let overlay = document.querySelector('.overlay');
     let elements = document.querySelector('.form-order-pizza').elements;
+    let form = document.querySelector('.form-order-pizza');
 
     let message = document.createElement('span');
     message.classList.add('formForMsg');
@@ -11,14 +13,21 @@ function init() {
     buttonToOrder.addEventListener('click', function(event) {
         event.preventDefault();
 
-        let modalId = this.getAttribute('data-modal');
-        let modalElem = document.querySelector('.modal[data-modal="' + modalId + '"]');
+        // Find value of data-modal attribute in the button
+        let modalRef = this.getAttribute('data-modal');
 
-        modalElem.classList.add('active');
+        // Find modal element with the same value of data-modal attribute
+        let modalElemForPayment = document.querySelector('.modal[data-modal="' + modalRef + '"]');
+
+        // Add needed classes for show our modal form
+        modalElemForPayment.classList.add('active');
         overlay.classList.add('active');
 
-        let buttonYes = modalElem.querySelector('#yes-payment');
-        let buttonNo = modalElem.querySelector('#no-payment');
+        // Find buttons "yes" and "No" in the modal form 
+        let buttonYes = modalElemForPayment.querySelector('#yes-payment');
+        let buttonNo = modalElemForPayment.querySelector('#no-payment');
+
+        // Find modal element with class ".modal" and with value "like" of "data-modal" attribute
         let modalElemForLike = document.querySelector('.modal[data-modal="like"]');
 
         buttonYes.addEventListener('click', function(e) {
@@ -32,14 +41,13 @@ function init() {
 
             storeOrders.setItem(newOrder);
 
-            modalElem.classList.remove('active');
+            modalElemForPayment.classList.remove('active');
             overlay.classList.remove('active');
 
-            document.querySelector('.form-order-pizza').classList.add('hide');
+            form.classList.add('hide');
 
             message.textContent = 'Cooking...';
-            
-            document.querySelector('.form-order-pizza').before(message);
+            form.before(message);
 
             setTimeout(function() {
                 message.textContent = 'Deliver took your pizza!';
@@ -74,7 +82,7 @@ function init() {
 
                 setTimeout(function() {
                     message.classList.add('deactive')
-                    document.querySelector('.form-order-pizza').classList.remove('hide');
+                    form.classList.remove('hide');
                 }, (3 * 1000));
 
                 setDefault(elements);
@@ -92,7 +100,7 @@ function init() {
 
                 setTimeout(function () {
                     message.classList.add('deactive')
-                    document.querySelector('.form-order-pizza').classList.remove('hide');
+                    form.classList.remove('hide');
                 }, (3 * 1000));
 
                 setDefault(elements);
@@ -102,17 +110,23 @@ function init() {
         buttonNo.addEventListener('click', function(e) {
             e.preventDefault();
 
-            modalElem.classList.remove('active');
+            modalElemForPayment.classList.remove('active');
             overlay.classList.remove('active');
 
             message.textContent = "The payment did not pass!";
+            message.classList.remove('deactive');
 
             document.querySelector('.js-open-modal').before(message);
         })
 
         overlay.addEventListener('click', function (e) {
-            modalElem.classList.remove('active');
-            overlay.classList.remove('active');
+            if (modalElemForLike.classList.contains('active')) {
+                return;
+            } else if (modalElemForPayment.classList.contains('active')) {
+                modalElemForPayment.classList.remove('active');
+                overlay.classList.remove('active');
+                return;
+            }
         })
     })
 }
@@ -139,7 +153,6 @@ function setDefault(elements) {
         if(types.includes(item.type)) {
             item.checked = false;
             if (item.value === 'medium') {
-                console.log(item);
                 item.checked = true
             }
         }
