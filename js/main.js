@@ -40,9 +40,7 @@ function init() {
         // Find modal element with class ".modal" and with value "like" of "data-modal" attribute
         let modalElemForLike = document.querySelector('.modal[data-modal="like"]');
 
-        buttonYes.addEventListener('click', function(e) {
-            e.preventDefault();
-
+        buttonYes.onclick = function() {
             if (message.classList.contains('payment') || message.classList.contains('incorrect')) {
                 message.classList.remove('payment');
                 message.classList.remove('incorrect');
@@ -84,9 +82,7 @@ function init() {
             let buttonYesForLike = modalElemForLike.querySelector('#yes-like');
             let buttonNoForLike = modalElemForLike.querySelector('#no-like');
 
-            buttonYesForLike.addEventListener('click', function(e) {
-                e.preventDefault();
-
+            buttonYesForLike.onclick = function () {
                 hideModalElement(modalElemForLike, 'active');
                 hideModalElement(overlay, 'active');
 
@@ -100,11 +96,9 @@ function init() {
                 }, (3 * 1000));
 
                 setDefault(elements);
-            });
+            };
 
-            buttonNoForLike.addEventListener('click', function (e) {
-                e.preventDefault();
-
+            buttonNoForLike.onclick = function () { 
                 hideModalElement(modalElemForLike, 'active');
                 hideModalElement(overlay, 'active');
 
@@ -118,8 +112,8 @@ function init() {
                 }, (3 * 1000));
 
                 setDefault(elements);
-            });
-        })
+            };
+        }
 
         buttonNo.addEventListener('click', function(e) {
             e.preventDefault();
@@ -138,6 +132,7 @@ function init() {
             if (modalElemForLike.classList.contains('active')) {
                 return;
             } else if (modalElemForPayment.classList.contains('active')) {
+                console.log(storeOrders.getItems());
                 hideModalElement(modalElemForPayment, 'active');
                 hideModalElement(overlay, 'active');
                 return;
