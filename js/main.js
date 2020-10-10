@@ -132,7 +132,6 @@ function init() {
             if (modalElemForLike.classList.contains('active')) {
                 return;
             } else if (modalElemForPayment.classList.contains('active')) {
-                console.log(storeOrders.getItems());
                 hideModalElement(modalElemForPayment, 'active');
                 hideModalElement(overlay, 'active');
                 return;
