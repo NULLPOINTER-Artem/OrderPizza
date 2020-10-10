@@ -13,6 +13,10 @@ function init() {
     buttonToOrder.addEventListener('click', function(event) {
         event.preventDefault();
 
+        if (message.classList.contains('payment')) {
+            message.classList.remove('payment');
+        }
+
         // Find value of data-modal attribute in the button
         let modalRef = this.getAttribute('data-modal');
 
@@ -113,6 +117,7 @@ function init() {
             modalElemForPayment.classList.remove('active');
             overlay.classList.remove('active');
 
+            message.classList.add('payment');
             message.textContent = "The payment did not pass!";
             message.classList.remove('deactive');
 
