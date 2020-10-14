@@ -10,53 +10,59 @@
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>  
-    <form class="form-order-pizza">
-        <div>
-            <input type="radio" name="size" value="small">
-            <label for="size">Small</label>
-        </div>
-        <div>
-            <input type="radio" name="size" value="medium" checked>
-            <label for="size">Medium</label>
-        </div>
-        <div>
-            <input type="radio" name="size" value="big">
-            <label for="size">Big</label>
-        </div>
-        <div>
-            <input type="checkbox" name="pineapple" value="pineapple">
-            <label for="pineapple">A pineapple</label>
-        </div>
-        <div>
-            <input type="checkbox" name="sausage" value="sausage">
-            <label for="sausage">Sausage</label>
-        </div>
-        <div>
-            <input type="checkbox" name="chickenMeat" value="chickenMeat">
-            <label for="chickenMeat">Chicken meat</label>
-        </div>
-        <div>
-            <input type="checkbox" name="mushrooms" value="mushrooms">
-            <label for="mushrooms">Mushrooms</label>
-        </div>
-        <div>
-            <input type="checkbox" name="spicesAndHerbs" value="spicesAndHerbs">
-            <label for="spicesAndHerbs">Spices and herbs</label>
-        </div>
-        <div>
-            <input class="js-open-modal" type="button" value="To order" data-modal="payment">
-        </div>
-    </form>
+    <div class="container">
+        <form class="form-order-pizza">
+            <div class="radioInputs">
+                <div>
+                    <input type="radio" name="size" value="small">
+                    <label for="size">Small</label>
+                </div>
+                <div>
+                    <input type="radio" name="size" value="medium" checked>
+                    <label for="size">Medium</label>
+                </div>
+                <div>
+                    <input type="radio" name="size" value="big">
+                    <label for="size">Big</label>
+                </div>
+            </div>
+            <div class="checkboxInputs">
+                <div>
+                    <input type="checkbox" name="pineapple" value="pineapple">
+                    <label for="pineapple">Pineapple</label>
+                </div>
+                <div>
+                    <input type="checkbox" name="sausage" value="sausage">
+                    <label for="sausage">Sausage</label>
+                </div>
+                <div>
+                    <input type="checkbox" name="chickenMeat" value="chickenMeat">
+                    <label for="chickenMeat">Chicken meat</label>
+                </div>
+                <div>
+                    <input type="checkbox" name="mushrooms" value="mushrooms">
+                    <label for="mushrooms">Mushrooms</label>
+                </div>
+                <div>
+                    <input type="checkbox" name="spicesAndHerbs" value="spicesAndHerbs">
+                    <label for="spicesAndHerbs">Spices & Herbs</label>
+                </div>
+            </div>
+            <div>
+                <input class="js-open-modal" type="button" value="To order" data-modal="payment">
+            </div>
+        </form>
+    </div>
 
-    <form class="modal" data-modal="payment">
-        <p>Get payment?</p>
+    <div class="modal" data-modal="payment">
+        <p>Will you pay?</p>
         <div class="agree">
-            <input id="yes-payment" type="button" value="Yes">
-            <input id="no-payment" type="button" value="No">
+            <input class="button" id="yes-payment" type="button" value="Yes">
+            <input class="button" id="no-payment" type="button" value="No">
         </div>
-    </form>
+    </div>
 
-    <form class="modal" data-modal="like">
+    <div class="modal" data-modal="like">
         <p>Did you like our service ?</p>
         <div class="agree">
             <div>
@@ -68,7 +74,7 @@
                 <img class="icon" src="./img/dislike.png" alt="dislike">
             </div>
         </div>
-    </form>
+    </div>
 
     <div class="overlay"></div>
 </body>

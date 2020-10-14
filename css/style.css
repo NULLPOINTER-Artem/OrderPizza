@@ -1,5 +1,151 @@
 * {
     font-family: 'Times New Roman', Times, serif;
+    line-height: 24px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 800px;
+    min-width: 400px;
+    max-height: 400px;
+    min-height: 200px;
+    align-content: center;
+    align-items: center;
+    margin: 0 auto;
+    padding: 50px;
+}
+
+.form-order-pizza {
+    background-color: #596a71;
+    min-width: 400px;
+    min-height: 200px;
+    border-radius: 15px;
+    padding: 20px;
+    color: whitesmoke;
+}
+
+.radioInputs {
+    display: flex;
+    justify-content: center;
+}
+
+.radioInputs div {
+    margin-right: 15px;
+}
+
+.radioInputs input {
+    position: absolute;
+    opacity: 0;
+}
+
+.radioInputs label::before {
+    content: "";
+    background: url("../img/smallPizza.png") no-repeat;
+    
+    width: 16px;
+    height: 16px;
+
+    margin-right: 5px;
+    margin-bottom: -2px;
+
+    display: inline-block;
+}
+
+.radioInputs label {
+    display: inline-block;
+}
+
+.radioInputs input:checked + label::before {
+    content: "";
+    border: 1px solid #000;
+    border-radius: 50%;
+}
+
+.checkboxInputs {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    margin: 10px 0;
+}
+
+.checkboxInputs input {
+    position: absolute;
+    opacity: 0;
+}
+
+.checkboxInputs label[for="pineapple"]::before {
+    content: "";
+    background: url("../img/pineapple.png") no-repeat;
+    
+    width: 16px;
+    height: 16px;
+
+    margin-right: 5px;
+    margin-bottom: -2px;
+
+    display: inline-block;
+}
+
+.checkboxInputs label[for="sausage"]::before {
+    content: "";
+    background: url("../img/sausage.png") no-repeat;
+    
+    width: 16px;
+    height: 16px;
+
+    margin-right: 5px;
+    margin-bottom: -2px;
+
+    display: inline-block;
+}
+
+.checkboxInputs label[for="chickenMeat"]::before {
+    content: "";
+    background: url("../img/chicken.png") no-repeat;
+    
+    width: 16px;
+    height: 16px;
+
+    margin-right: 5px;
+    margin-bottom: -2px;
+
+    display: inline-block;
+}
+
+.checkboxInputs label[for="mushrooms"]::before {
+    content: "";
+    background: url("../img/Mushrooms.png") no-repeat;
+    
+    width: 16px;
+    height: 16px;
+
+    margin-right: 5px;
+    margin-bottom: -2px;
+
+    display: inline-block;
+}
+
+.checkboxInputs label[for="spicesAndHerbs"]::before {
+    content: "";
+    background: url("../img/spices.png") no-repeat;
+    
+    width: 16px;
+    height: 16px;
+
+    margin-right: 5px;
+    margin-bottom: -2px;
+
+    display: inline-block;
+}
+
+.checkboxInputs label {
+    display: inline-block;
+}
+
+.checkboxInputs input:checked + label::before {
+    content: "";
+    border: 1px solid#000;
+    border-radius: 50%;
 }
 
 .modal {
@@ -11,9 +157,11 @@
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 30;
-    background-color: #fff;
-    border: 1px solid #000;
+    background-color:#161f27;
+    border: 1px solid black;
+    border-radius: 15px;
     padding: 30px;
+    color: whitesmoke;
 }
 
 .modal.active,
@@ -34,7 +182,7 @@
 
 .agree {
     display: flex;
-    margin-left: 60%;
+    margin-left: 45%;
     justify-content: space-between;
 }
 
@@ -45,18 +193,19 @@
 
 .formForMsg {
     display: block;
-    width: 200px;
-    height: 50px;
+    width: 340px;
+    height: 60px;
 
     text-align: center;
-    box-sizing: border-box;
-    padding-top: 5px;
+    padding-top: 15px;
 
-    background-color: #000;
-    color: #fff;
+    margin: 0 auto;
+
+    background-color: #1c1d1c;
+    color: whitesmoke;
 
     border-radius: 8px;
-    border: 1px solid #000;
+    border: 0
 }
 
 .formForMsg.payment {
@@ -91,8 +240,38 @@
 }
 
 .form-order-pizza input[type="button"] {
-    margin-top: 10px;
-    background-color: #000;
+    display: block;
+    margin: 10px auto;
+    width: 100px;
+    height: 30px;
+    color: whitesmoke;
+    background-color:#1c1d1c;
     border: 0;
-    color: #fff;
+}
+
+.form-order-pizza input[type="button"]:active {
+    box-shadow: 0 0 0 black;
+    transform: translate(0, 0);
+}
+
+.form-order-pizza input[type="button"]:hover {
+    box-shadow: 1px 1px 10px #000;
+    transform: translate(-0.1rem, -0.1rem);
+}
+
+.button {
+    background-color: #6f849c;
+    border: 0;
+    color: thistle;
+    border-radius: 8px;
+}
+
+.button:hover {
+  box-shadow: 0.4rem 0.4rem 0 black;
+  transform: translate(-0.2rem, -0.2rem);
+}
+
+.button:active {
+  box-shadow: 0 0 0 black;
+  transform: translate(0, 0);
 }
