@@ -1,6 +1,8 @@
-const storeOrders = new Store();
+import Store from './StoreService.js';
 
-class Order {
+export const storeOrders = new Store();
+
+export class Order {
     constructor({ size = 'medium', ingredients = [], status = 'ordered' }) {
         this.size = size;
         this.ingredients = ingredients;

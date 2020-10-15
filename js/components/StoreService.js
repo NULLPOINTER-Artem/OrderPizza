@@ -1,4 +1,4 @@
-class Store {
+export default class Store {
     store;
     constructor(initialStore = []) {
         this.store = initialStore;
