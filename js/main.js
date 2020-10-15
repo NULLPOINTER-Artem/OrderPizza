@@ -9,6 +9,7 @@ function init() {
     let overlay = document.querySelector('.overlay');
     let elements = document.querySelector('.form-order-pizza').elements;
     let form = document.querySelector('.form-order-pizza');
+    showElement(form, 'active');
 
     let message = new Message(() => document.createElement('span'));
     message.addClass('formForMsg');
@@ -33,8 +34,9 @@ function init() {
         let modalElemForPayment = document.querySelector('.modal[data-modal="' + modalRef + '"]');
 
         // Add needed classes for show our modal form
-        modalElemForPayment.classList.add('active');
-        overlay.classList.add('active');
+        showElement(modalElemForPayment, 'active');
+        showElement(overlay, 'active');
+        hideElement(form, 'active');
 
         // Find buttons "yes" and "No" in the modal form 
         let buttonYes = modalElemForPayment.querySelector('#yes-payment');
@@ -55,10 +57,9 @@ function init() {
 
             storeOrders.setItem(newOrder);
 
-            hideModalElement(modalElemForPayment, 'active');
-            hideModalElement(overlay, 'active');
-
-            form.classList.add('hide');
+            hideElement(modalElemForPayment, 'active');
+            hideElement(overlay, 'active');
+            hideElement(form, 'active');
 
             message.changeTextContent('Cooking...');
             message.deleteClass('deactive');
@@ -73,34 +74,34 @@ function init() {
             newOrder.status = 'delivered';
 
             await message.addClass('deactive', 1.5 * 1000);
-            showModalElement(modalElemForLike, 'active');
-            showModalElement(overlay, 'active');
+            showElement(modalElemForLike, 'active');
+            showElement(overlay, 'active');
 
             let buttonYesForLike = modalElemForLike.querySelector('#yes-like');
             let buttonNoForLike = modalElemForLike.querySelector('#no-like');
 
             buttonYesForLike.onclick = async function () {
-                hideModalElement(modalElemForLike, 'active');
-                hideModalElement(overlay, 'active');
+                hideElement(modalElemForLike, 'active');
+                hideElement(overlay, 'active');
 
                 message.changeTextContent('Thank You for your feedback!');
                 message.deleteClass('deactive');
 
                 await message.addClass('deactive', 1.5 * 1000);
-                form.classList.remove('hide');
+                showElement(form, 'active');
 
                 setDefault(elements);
             };
 
             buttonNoForLike.onclick = async function () { 
-                hideModalElement(modalElemForLike, 'active');
-                hideModalElement(overlay, 'active');
+                hideElement(modalElemForLike, 'active');
+                hideElement(overlay, 'active');
 
                 message.changeTextContent('Thank You for your feedback!');
                 message.deleteClass('deactive');
 
                 await message.addClass('deactive', 1.5 * 1000);
-                form.classList.remove('hide');
+                showElement(form, 'active');
 
                 setDefault(elements);
             };
@@ -109,8 +110,9 @@ function init() {
         buttonNo.addEventListener('click', function(e) {
             e.preventDefault();
 
-            hideModalElement(modalElemForPayment, 'active');
-            hideModalElement(overlay, 'active');
+            hideElement(modalElemForPayment, 'active');
+            hideElement(overlay, 'active');
+            showElement(form, 'active');
 
             message.addClass('payment');
             message.changeTextContent('The payment did not pass!');
@@ -123,8 +125,10 @@ function init() {
             if (modalElemForLike.classList.contains('active')) {
                 return;
             } else if (modalElemForPayment.classList.contains('active')) {
-                hideModalElement(modalElemForPayment, 'active');
-                hideModalElement(overlay, 'active');
+                hideElement(modalElemForPayment, 'active');
+                hideElement(overlay, 'active');
+                showElement(form, 'active');
+
                 return;
             }
         })
@@ -148,11 +152,11 @@ function validateCheckboxes(elements) {
     return valid;
 }
 
-function hideModalElement(element, classHide) {
+function hideElement(element, classHide) {
     element.classList.remove(classHide);
 }
 
-function showModalElement(element, classShow) {
+function showElement(element, classShow) {
     element.classList.add(classShow);
 }
 
