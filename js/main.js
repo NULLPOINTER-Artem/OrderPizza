@@ -40,7 +40,7 @@ function init() {
             showElement(overlay, 'active');
             hideElement(form, 'active');
 
-            checkPayment().then(async () => {
+            checkPayment().then(() => {
                 if (message.haveMessageClass('incorrect')) {
                     message.deleteClass('incorrect');
                 }
@@ -58,19 +58,39 @@ function init() {
                 message.changeTextContent('Cooking...');
                 message.deleteClass('deactive');
                 form .before(message.getElement());
-        
-                await message.changeTextContent('Deliveryman took your pizza!', 3000);
-                newOrder.status = 'cooked';
-        
-                await message.changeTextContent('Deliveryman delivered your pizza!', 3000);
-                newOrder.status = 'delivered';
-        
-                await message.addClass('deactive', 1.5 * 1000);
 
-                showElement(modalElemForLike, 'active');
-                showElement(overlay, 'active');
+                new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve('Deliveryman took your pizza!');
+                    }, 3000);
+                }).then((msg) => {
+                    message.changeTextContent(msg);
+                    newOrder.status = 'cooked';
 
-                checkLike().then(async () => {
+                    return new Promise((resolve) => {
+                        setTimeout(() => {
+                            resolve('Deliveryman delivered your pizza!');
+                        }, 3000)
+                    })
+                }).then((msg) => {
+                    message.changeTextContent(msg);
+                    newOrder.status = 'delivered';
+
+                    return new Promise((resolve) => {
+                        setTimeout(() => {
+                            resolve('deactive');
+                        }, 1500);
+                    })
+                }).then((nameClass) => {
+                    message.addClass(nameClass);
+
+                    showElement(modalElemForLike, 'active');
+                    showElement(overlay, 'active');
+                }).catch(() => {
+                    console.error("Error at delivery moment");
+                })
+
+                checkLike().then(() => {
                     this.event.preventDefault();
 
                     hideElement(modalElemForLike, 'active');
@@ -79,12 +99,20 @@ function init() {
                     message.changeTextContent('Thank You for your feedback!');
                     message.deleteClass('deactive');
 
-                    await message.addClass('deactive', 1.5 * 1000);
+                    new Promise((resolve) => {
+                        setTimeout(() => {
+                            resolve('deactive');
+                        }, 1500)
+                    }).then((nameClass) => {
+                        message.addClass(nameClass);
 
-                    showElement(form, 'active');
+                        showElement(form, 'active');
 
-                    setDefault(elements);
-                }).catch(async () => {
+                        setDefault(elements);
+                    }).catch(() => {
+                        console.error("Error at setting the form to default after like");
+                    })
+                }).catch(() => {
                     this.event.preventDefault();
 
                     hideElement(modalElemForLike, 'active');
@@ -93,11 +121,19 @@ function init() {
                     message.changeTextContent('Thank You for your feedback!');
                     message.deleteClass('deactive');
 
-                    await message.addClass('deactive', 1.5 * 1000);
+                    new Promise((resolve) => {
+                        setTimeout(() => {
+                            resolve('deactive');
+                        }, 1500)
+                    }).then((nameClass) => {
+                        message.addClass(nameClass);
 
-                    showElement(form, 'active');
+                        showElement(form, 'active');
 
-                    setDefault(elements);
+                        setDefault(elements);
+                    }).catch(() => {
+                        console.error("Error at setting the form to default after dislike");
+                    })
                 })
             }).catch(() => {
                 hideElement(modalElemForPayment, 'active');
