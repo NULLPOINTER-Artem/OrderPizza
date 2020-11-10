@@ -71,9 +71,9 @@ body {
     display: inline-block;
 }
 
-.radioInputs input:checked + label::before {
+.radioInputs input:checked + label::before, .checkboxInputs input:checked + label::before {
     content: "";
-    border: 1px solid #000;
+    border: 2px solid greenyellow;
     border-radius: 50%;
 }
 
@@ -157,12 +157,6 @@ body {
     display: inline-block;
 }
 
-.checkboxInputs input:checked + label::before {
-    content: "";
-    border: 1px solid#000;
-    border-radius: 50%;
-}
-
 .modal {
     visibility: hidden;
     width: 200px;
@@ -219,12 +213,10 @@ body {
     border: 0
 }
 
-.formForMsg.payment {
-    margin-top: 10px;
-}
-
 .formForMsg.incorrect {
+    font-size: 18px;
     margin-top: 10px;
+    background-color: #ff726f;
 }
 
 .formForMsg.deactive {

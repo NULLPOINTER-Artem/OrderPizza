@@ -13,10 +13,13 @@ export default class Message {
             this.message.classList.add(nameClass);
         } else {
             return new Promise((resolve) => {
-                setTimeout(function () {
+                setTimeout(() => {
                     resolve(nameClass);
-                    this.message.classList.add(nameClass);
-                }.bind(this), time);
+                }, time);
+            }).then((nameClass) => {
+                this.message.classList.add(nameClass);
+            }).catch(() => {
+                console.error('Error with Promise');
             })
         } 
     }
@@ -26,10 +29,13 @@ export default class Message {
             this.message.classList.remove(nameClass);
         } else {
             return new Promise((resolve) => {
-                setTimeout.call(this, function () {
+                setTimeout(() => {
                     resolve(nameClass);
-                    this.message.classList.remove(nameClass);
-                }.bind(this), time);
+                }, time);
+            }).then((nameClass) => {
+                this.message.classList.remove(nameClass);
+            }).catch(() => {
+                console.error('Error with Promise');
             })
         }
     }
@@ -39,10 +45,13 @@ export default class Message {
             this.message.textContent = textContent;
         } else {
             return new Promise((resolve) => {
-                setTimeout(function () {
+                setTimeout(() => {
                     resolve(textContent);
-                    this.message.textContent = textContent;
-                }.bind(this), time);
+                }, time);
+            }).then((textContent) => {
+                this.message.textContent = textContent;
+            }).catch(() => {
+                console.error('Error with Promise');
             })
         }
     }
